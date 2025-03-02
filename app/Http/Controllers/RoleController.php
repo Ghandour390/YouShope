@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Psr\Log\LogLevel;
 
 class RoleController extends Controller
 {
@@ -21,7 +22,7 @@ class RoleController extends Controller
         Role::create([
             'name' => $request->name,
         
-
+LogLevel
         ]);
         return redirect()->route('admin.roles')->with('success', 'role ajouté avec succès!');
 
