@@ -2,54 +2,60 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\categorie;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
 class CategorieController extends Controller
 {
-    public function index(){
-        $categories = categorie::all();
-        return view('admin.categorie' , compact('categories'));
+
+    public function index()
+    {
+        $categories = Categorie::all();
+        return view('admin.categories', compact('categories'));
     }
-    public function createProduit(Request $request){
-       
+
+    
+    public function store(Request $request)
+    {
         $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string|max:255',
-            'categorie_id' => 'required|integer|max:255',
-            
         ]);
 
-        categorie::create([
+        Categorie::create([
             'name' => $request->name,
-            'description'=>$request->description,
-            
+            'description' => $request->description,
         ]);
-        return redirect()->route('admin.roles')->with('success', 'sucategorie ajouté avec succès!');
 
+        return redirect()->route('admin.categories')->with('success', 'Catégorie ajoutée avec succès !');
     }
-    public function edit(categorie $categorie)
+
+    
+    public function edit(Categorie $categorie)
     {
         return view('admin.categorie_edit', compact('categorie'));
     }
 
-    public function update(Request $request, categorie $sucategorie)
+    
+    public function update(Request $request, Categorie $categorie)
     {
         $request->validate([
             'name' => 'required|string|max:255',
-           
+            'description' => 'required|string|max:255',
         ]);
 
-        $sucategorie->update([
+        $categorie->update([
             'name' => $request->name,
-           ]);
+            'description' => $request->description,
+        ]);
 
-        return redirect()->route('admin.role_edit')->with('success', 'sucategorie mis à jour!');
+        return redirect()->route('admin.categories')->with('success', 'Catégorie mise à jour avec succès !');
     }
 
-    public function destroy(categorie $categorie)
+    
+    public function destroy(Categorie $categorie)
     {
         $categorie->delete();
-        return redirect()->route('admin.roles')->with('success', 'sucategorie supprimé!');
+        return redirect()->route('admin.categories')->with('success', 'Catégorie supprimée avec succès !');
     }
 }

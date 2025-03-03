@@ -5,7 +5,7 @@
     <!-- Product Header -->
     <div class="bg-white p-8 rounded-lg shadow-sm mb-8">
         <h1 class="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-400 bg-clip-text text-transparent">
-            {{ $product->title }}
+            {{ $produit->name }}
         </h1>
         <div class="flex gap-8 flex-wrap mt-4">
             <div class="flex items-center gap-2 text-gray-600">

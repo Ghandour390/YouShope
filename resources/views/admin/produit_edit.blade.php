@@ -17,7 +17,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
-                        <input type="text" class="form-control" value="{{ $product->title }}" name="title" id="title" required>
+                        <input type="text" class="form-control" value="{{ $product->name }}" name="title" id="title" required>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
@@ -25,7 +25,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">$Price</label>
-                        <input type="number" class="form-control" value="{{ $product->price }}" name="price" id="price" required>
+                        <input type="number" class="form-control" value="{{ $product->prix }}" name="price" id="price" required>
                     </div>
                     <div class="mb-3">
                         <label for="stock" class="form-label">Stock</label>

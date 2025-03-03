@@ -49,33 +49,33 @@
                 </tr>
                 </thead>
                 <tbody class="table-light">
-                @foreach($categories as $category)
+                @foreach($sucategories as $sucategorie)
                     <tr>
-                        <td><strong>{{ $category->name }}</strong></td>
-                        <td>{{ $category->description }}</td>
+                        <td><strong>{{ $sucategorie->name }}</strong></td>
+                        <td>{{ $sucategorie->description }}</td>
                         <td>
-                            @if($category->category)
-                                <span class="badge bg-success">{{ $category->category->name }} Category</span>
+                            @if($sucategorie->sucategorie)
+                                <span class="badge bg-success">{{ $sucategorie->sucategorie->name }} Category</span>
                             @else
-                                <span class="badge bg-secondary">No Category</span>
+                                <span class="badge bg-secondary">No sucategorie</span>
                             @endif
                         </td>
                         <td>
-                            <form action="{{ url('/admin/subcategory/get') }}" method="POST" style="display:inline;">
+                            <form action="{{ url('/admin/sucategorie/get') }}" method="POST" style="display:inline;">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil"></i> Update
                                 </button>
-                                <input type="hidden" name="category" value="{{ $category->id }}">
+                                <input type="hidden" name="sucategorie" value="{{ $sucategorie->id }}">
                             </form>
 
-                            <form action="{{ url('/admin/category/delete') }}" method="POST" style="display:inline;">
+                            <form action="{{ url('/admin/sucategorie/delete') }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">
                                     <i class="bi bi-trash"></i> Delete
                                 </button>
-                                <input type="hidden" name="category" value="{{ $category->id }}">
+                                <input type="hidden" name="sucategorie" value="{{ $sucategorie->id }}">
                             </form>
                         </td>
                     </tr>

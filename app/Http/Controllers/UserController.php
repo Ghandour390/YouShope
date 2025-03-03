@@ -57,8 +57,8 @@ class UserController extends Controller
         ]);
 
         $user->update([
-            'nome' => $request->nome,
             'nom' => $request->nom,
+            'prenom' => $request->prenom,
             'email' => $request->email,
             'password' => $request->password ? Hash::make($request->password) : $user->password,
             'role_id' => $request->role_id,

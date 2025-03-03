@@ -33,16 +33,16 @@
                                 <input type="text" class="form-control" name="description" id="description" required>
                             </div>
                             <div class="mb-3">
-                                <label for="price" class="form-label">$Price</label>
-                                <input type="number" class="form-control" name="price" id="price" required>
+                                <label for="price" class="form-label">$Prix</label>
+                                <input type="number" class="form-control" name="prix" id="prix" required>
                             </div>
                             <div class="mb-3">
                                 <label for="stock" class="form-label">Stock</label>
-                                <input type="number" class="form-control" name="stock" id="stock" required>
+                                <input type="number" class="form-control" name="quantitue" id="quantitue" required>
                             </div>
                             <div class="mb-3">
                                 <label for="category" class="form-label">Category</label>
-                                <select class="form-select" name="category" id="category">
+                                <select class="form-select" name="categorie" id="categorie">
                                     @foreach($categories as $categorie)
                                         <option value="{{ $categorie->id }}" >{{ $categorie->name }}</option>
                                     @endforeach
@@ -64,11 +64,10 @@
                 <thead class="table-dark">
                 <tr>
                     <th scope="col">Image</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Stock</th>
-                    <th scope="col">Added By</th>
-                    <th scope="col">Category</th>
+                    <th scope="col">name</th>
+                    <th scope="col">Prix</th>
+                    <th scope="col">quantitue</th>
+                    <th scope="col">Categorie</th>
                     <th scope="col" class="text-center">Actions</th>
                 </tr>
                 </thead>
@@ -76,21 +75,21 @@
                 @foreach($products as $product)
                     <tr>
                         <td style="width: 10%"><img src="{{ url('/storage/' . $product->image) }}"></td>
-                        <td><strong>{{ $product->title }}</strong></td>
-                        <td>${{ $product->price }}</td>
-                        <td><span class="badge bg-primary">{{ $product->quantitue }}</span></td>
-                        <td><span class="badge bg-success">{{ $product->user->name }}</span></td>
-                        <td><span class="badge bg-primary">{{ $product->categorie->name }}</span></td>
+                        <td><strong>{{ $produit->name }}</strong></td>
+                        <td>${{ $produit->prix }}</td>
+                        <td><span class="badge bg-primary">{{ $produit->quantitue }}</span></td>
+                        {{-- <td><span class="badge bg-success">{{ $product->user->name }}</span></td> --}}
+                        <td><span class="badge bg-primary">{{ $produit->categorie->name }}</span></td>
                         <td>
-                            <form action="{{ url('/admin/product/get') }}" method="POST" style="display:inline;">
+                            <form action="{{ url('/admin/produit/get') }}" method="POST" style="display:inline;">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil"></i> Update
                                 </button>
-                                <input type="hidden" name="product" value="{{ $product->id }}">
+                                <input type="hidden" name="product" value="{{ $produit->id }}">
                             </form>
 
-                            <form action="{{ url('/admin/product/delete') }}" method="POST" style="display:inline;">
+                            <form action="{{ url('/admin/produit/delete') }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger">

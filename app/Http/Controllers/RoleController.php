@@ -22,7 +22,6 @@ class RoleController extends Controller
         Role::create([
             'name' => $request->name,
         
-LogLevel
         ]);
         return redirect()->route('admin.roles')->with('success', 'role ajouté avec succès!');
 

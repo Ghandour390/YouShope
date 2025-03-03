@@ -2,59 +2,56 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\sucategorie;
+use App\Models\Sucategorie;
 use Illuminate\Http\Request;
 
 class SucategorieController extends Controller
 {
-
-
-
-    public function index(){
-        $Sucategories = sucategorie::all();
-        return view('admin.sucategorie' , compact('sucateories'));
+    public function index()
+    {
+        $souscategories = Sucategorie::all();
+        return view('admin.sucategories', compact('sucategories'));
     }
-    public function createProduit(Request $request){
-       
+    public function store(Request $request)
+    {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
-            'categorie_id' => 'required|integer|max:255',
-            
+            'name' => 'required|string|max:40',
+            'description' => 'required|string|max:200',
+            'categorie_id' => 'required|integer|exists:categories,id',
         ]);
 
-        sucategorie::create([
+        Sucategorie::create([
             'name' => $request->name,
-            'description'=>$request->description,
-            'categorie_id'=>$request->catedorie_id
+            'description' => $request->description,
+            'categorie_id' => $request->categorie_id,
         ]);
-        return redirect()->route('admin.roles')->with('success', 'sucategorie ajouté avec succès!');
 
+        return redirect()->route('admin.sucategories')->with('success', 'Sous-catégorie ajoutée avec succès !');
     }
-    public function edit(sucategorie $sucategorie)
+
+    public function edit(Sucategorie $sucategorie)
     {
         return view('admin.sucategorie_edit', compact('sucategorie'));
     }
-
-    public function update(Request $request, sucategorie $sucategorie)
+    public function update(Request $request, Sucategorie $sucategorie)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-           
+            'name' => 'required|string|max:40',
+            'description' => 'required|string|max:200',
+            'categorie_id' => 'required|integer|exists:categories,id',
         ]);
 
         $sucategorie->update([
             'name' => $request->name,
-           ]);
+            'description' => $request->description,
+            'categorie_id' => $request->categorie_id,
+        ]);
 
-        return redirect()->route('admin.role_edit')->with('success', 'sucategorie mis à jour!');
+        return redirect()->route('admin.sucategories')->with('success', 'Sous-catégorie mise à jour avec succès !');
     }
-
-    public function destroy(sucategorie $sucategorie)
+    public function destroy(Sucategorie $sucategorie)
     {
         $sucategorie->delete();
-        return redirect()->route('admin.roles')->with('success', 'sucategorie supprimé!');
+        return redirect()->route('admin.sucategories')->with('success', 'Sucatégorie supprimée avec succès !');
     }
 }
-
-
