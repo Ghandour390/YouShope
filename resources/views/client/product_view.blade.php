@@ -1,6 +1,14 @@
 @extends('welcome')
-@section('title', 'Product View')
+@section('title', 'Produit View')
+@extends('layouts.bootstrap')
 @section('view')
+
+<div>@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+</div>
 <div class="max-w-8xl">
     <!-- Product Header -->
     <div class="bg-white p-8 rounded-lg shadow-sm mb-8">
@@ -31,7 +39,7 @@
             <div class="bg-white p-8 rounded-lg shadow-sm">
                 <h2 class="text-2xl font-semibold mb-6">Product Description</h2>
                 <p class="text-gray-600 leading-relaxed">
-                    This is a detailed description of the product. It explains the features, benefits, and what users can expect.
+                    This is a detailed description of the produit. It explains the features, benefits, and what users can expect.
                 </p>
                 <div class="w-full bg-gray-200 rounded-full h-2 mt-6">
                     <div class="bg-indigo-600 h-2 rounded-full" style="width: 75%;"></div>

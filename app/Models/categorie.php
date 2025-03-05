@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use App\Models\sucategorie;
 use Illuminate\Database\Eloquent\Model;
 
 class categorie extends Model
 {
     protected $fillable = ['name','description'];
 
-    public function categorie(){return $this->hasMany(sucategorie::class);}
+    public function sucategories(){return $this->hasMany(sucategorie::class);}
 }

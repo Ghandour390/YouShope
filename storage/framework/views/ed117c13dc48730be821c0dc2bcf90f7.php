@@ -1,13 +1,11 @@
-@extends('dashboard')
-@extends('layouts.bootstrap')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
             <div>
-                @if (session('success'))
+                <?php if(session('success')): ?>
     <div class="alert alert-success">
-        {{ session('success') }}
+        <?php echo e(session('success')); ?>
+
     </div>
-     @endif
+     <?php endif; ?>
             </div>
     <div>
         <!-- Button trigger modal -->
@@ -27,7 +25,7 @@
                     </div>
                     <div class="modal-body">
                         <form id="registerForm" method="POST" action="/admin/produits/create"  enctype="multipart/form-data" novalidate>
-                            @csrf
+                            <?php echo csrf_field(); ?>
                             <div class="input-group mb-3 border-2">
                                 <label class="input-group-text" for="inputGroupFile01">Upload Image</label>
                                 <input type="file" name="image" class="form-control" id="inputGroupFile01">
@@ -51,12 +49,12 @@
                             <div class="mb-3">
                                 <label for="category" class="form-label">Categorie</label>
                                 <select class="form-select" name="categorie" id="categorie">
-                                    @foreach($categories as $categorie)
-                                        <option value="{{ $categorie->id }}" >{{ $categorie->name }}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $categorie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($categorie->id); ?>" ><?php echo e($categorie->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
-                            <input type="hidden" class="form-control" name="user" id="user" value="{{ Auth::user()->id }}" required>
+                            <input type="hidden" class="form-control" name="user" id="user" value="<?php echo e(Auth::user()->id); ?>" required>
                             <button type="submit" class="btn btn-primary w-100">Create</button>
                         </form>
                     </div>
@@ -80,37 +78,40 @@
                 </tr>
                 </thead>
                 <tbody class="table-light">
-                @foreach($produits as $produit)
+                <?php $__currentLoopData = $produits; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $produit): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td style="width: 10%"><img src="{{ url('/storage/' . $produit->image) }}"></td>
-                        <td><strong>{{ $produit->name }}</strong></td>
-                        <td>${{ $produit->prix }}</td>
-                        <td><span class="badge bg-primary">{{ $produit->quantitue }}</span></td>
-                        {{-- <td><span class="badge bg-success">{{ $product->user->name }}</span></td> --}}
-                        <td><span class="badge bg-primary">{{ $produit->categorie->name }}</span></td>
+                        <td style="width: 10%"><img src="<?php echo e(url('/storage/' . $produit->image)); ?>"></td>
+                        <td><strong><?php echo e($produit->name); ?></strong></td>
+                        <td>$<?php echo e($produit->prix); ?></td>
+                        <td><span class="badge bg-primary"><?php echo e($produit->quantitue); ?></span></td>
+                        
+                        <td><span class="badge bg-primary"><?php echo e($produit->categorie->name); ?></span></td>
                         <td>
-                            <form action="{{ url('/admin/produit/get') }}" method="POST" style="display:inline;">
-                                @csrf
+                            <form action="<?php echo e(url('/admin/produit/get')); ?>" method="POST" style="display:inline;">
+                                <?php echo csrf_field(); ?>
                                 <button type="submit" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil"></i> Update
                                 </button>
-                                <input type="hidden" name="product" value="{{ $produit->id }}">
+                                <input type="hidden" name="product" value="<?php echo e($produit->id); ?>">
                             </form>
 
-                            <form action="{{ url('/admin/produit/delete') }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('DELETE')
+                            <form action="<?php echo e(url('/admin/produit/delete')); ?>" method="POST" style="display:inline;">
+                                <?php echo csrf_field(); ?>
+                                <?php echo method_field('DELETE'); ?>
                                 <button type="submit" class="btn btn-sm btn-danger">
                                     <i class="bi bi-trash"></i> Delete
                                 </button>
-                                <input type="hidden" name="produit" value="{{ $produit->id }}">
+                                <input type="hidden" name="produit" value="<?php echo e($produit->id); ?>">
                             </form>
                         </td>
                     </tr>
-                @endforeach
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </tbody>
             </table>
 
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.bootstrap', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+<?php echo $__env->make('dashboard', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Youcode\Desktop\YouShope\resources\views/admin/produits.blade.php ENDPATH**/ ?>

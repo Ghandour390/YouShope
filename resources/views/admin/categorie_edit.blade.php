@@ -1,4 +1,5 @@
 @extends('dashboard')
+@extends('layouts.bootstrap')
 
 @section('content')
     <div class="container mt-4">
@@ -7,11 +8,11 @@
                 <h4 class="mb-0">Update Category</h4>
             </div>
             <div class="card-body">
-                <form id="registerForm" method="POST" action="/admin/category/update" novalidate>
+                <form id="registerForm" method="POST" action="/admin/categories/update" novalidate>
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
-                        <label for="name" class="form-label">Category Name</label>
+                        <label for="name" class="form-label">Categorie Name</label>
                         <input type="text" class="form-control" value="{{ $categorie->name }}" name="name" id="name" required>
                     </div>
                     <div class="mb-3">

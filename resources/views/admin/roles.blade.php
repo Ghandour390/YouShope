@@ -1,5 +1,5 @@
 @extends('dashboard')
-
+@extends('layouts.bootstrap')
 @section('content')
     <div>
         <!-- Button trigger modal -->

@@ -1,4 +1,5 @@
 @extends('dashboard')
+@extends('layouts.bootstrap')
 
 @section('content')
     <div class="container mt-4">
@@ -13,7 +14,7 @@
                     <div class="input-group mb-3 border-2">
                         <label class="input-group-text" for="inputGroupFile01">Upload Image</label>
                         <input type="file" name="image" class="form-control" id="inputGroupFile01">
-                        <div style="width: 10%"><img src="{{ url('storage/'. $product->image) }}"></div>
+                        <div style="width: 10%"><img src="{{ url('storage/'. $produit->image) }}"></div>
                     </div>
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
@@ -25,11 +26,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="price" class="form-label">$Price</label>
-                        <input type="number" class="form-control" value="{{ $product->prix }}" name="price" id="price" required>
+                        <input type="number" class="form-control" value="{{ $produit->prix }}" name="price" id="price" required>
                     </div>
                     <div class="mb-3">
                         <label for="stock" class="form-label">Stock</label>
-                        <input type="number" class="form-control" value="{{ $product->quantitiue }}" name="stock" id="stock" required>
+                        <input type="number" class="form-control" value="{{ $produit->quantitiue }}" name="stock" id="stock" required>
                     </div>
                     <div class="mb-3">
                         <label for="category" class="form-label">Category</label>

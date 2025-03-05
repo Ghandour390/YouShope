@@ -1,18 +1,10 @@
 </div>
 
 
-@extends('dashboard')
-@extends('layouts.bootstrap')
 
-@section('content')
 
-    <div>
-        @if (session('success'))
-            <div class="alert alert-success">
-                {{ session('success') }}
-            </div>
-        @endif
-    </div>
+
+<?php $__env->startSection('content'); ?>
     <div>
         <!-- Button trigger modal -->
         <div>
@@ -31,7 +23,7 @@
                         </div>
                         <div class="modal-body">
                             <form id="registerForm" method="POST" action="/admin/category/create" novalidate>
-                                @csrf
+                                <?php echo csrf_field(); ?>
                                 <div class="mb-3">
                                     <label for="name" class="form-label">Category Name</label>
                                     <input type="text" class="form-control" name="name" id="name" required>
@@ -43,9 +35,9 @@
                                 <button type="submit" class="btn btn-primary w-100">Categorie</button>
                                 <select id="categorie_id" class="form-control" name="categorie_id">
 
-                                    @foreach ($categories as $categorie)
-                                        <option value="{{$categorie['id']}}">{{ $categorie->name}}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $categorie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($categorie['id']); ?>"><?php echo e($categorie->name); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
                                 </select>
                             </form>
@@ -68,32 +60,31 @@
                         </tr>
                     </thead>
                     <tbody class="table-light">
-                        @foreach($sucategories as $sucategorie)
+                        <?php $__currentLoopData = $sucategories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $sucategorie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td><strong>{{ $sucategorie['name'] }}</strong></td>
-                                <td>{{ $sucategorie['description'] }}</td>
+                                <td><strong><?php echo e($sucategorie['name']); ?></strong></td>
+                                <td><?php echo e($sucategorie['description']); ?></td>
                                 <td>
-                                    @if($sucategorie->categorie)
-                                        <span class="badge bg-success">{{ $sucategorie->categorie->name }} Categorie</span>
-                                    @else
+                                    <?php if($sucategorie->categorie): ?>
+                                        <span class="badge bg-success"><?php echo e($sucategorie->categorie->name); ?> Categorie</span>
+                                    <?php else: ?>
                                         <span class="badge bg-secondary">No categorie</span>
-                                    @endif
+                                    <?php endif; ?>
                                 </td>
                                 <td>
-                                    <form action="/admin/sucategories/edit/{{$sucategorie->id}}" method="POST"
-                                        style="display:inline;">
-                                        @csrf
+                                    <form action="/admin/sucategories/edit/<?php echo e($sucategorie->id); ?>" method="POST" style="display:inline;">
+                                        <?php echo csrf_field(); ?>
                                         <button type="submit" class="btn btn-sm btn-warning">
                                             <i class="bi bi-pencil"></i> Update
                                         </button>
-
+                                       
                                     </form>
 
-                                    <form action="{{ route('admin.categories.destroy') }}" method="POST"
+                                    <form action="<?php echo e(route('admin.categories.destroy')); ?>" method="POST"
                                         style="display:inline;">
-                                        @csrf
+                                        <?php echo csrf_field(); ?>
 
-                                        <input type="hidden" name="id" value="{{ $sucategorie['id'] }}">
+                                        <input type="hidden" name="id" value="<?php echo e($sucategorie['id']); ?>">
                                         <button type="submit" class="btn btn-sm btn-danger">
                                             <i class="bi bi-trash"></i> Delete
                                         </button>
@@ -102,9 +93,11 @@
                                 </td>
                             </tr>
                             </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
                 </table>
             </div>
         </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.bootstrap', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
+<?php echo $__env->make('dashboard', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\Users\Youcode\Desktop\YouShope\resources\views/admin/sucategories.blade.php ENDPATH**/ ?>

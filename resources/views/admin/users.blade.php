@@ -1,6 +1,15 @@
 @extends('dashboard')
+@extends('layouts.bootstrap')
 
 @section('content')
+
+    <div>
+        @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+    </div>
     <div>
         <div class="flex-wrap justify-content-xl-center d-flex" style="width: 100%; gap: 20px">
             <table class="table table-hover table-bordered text-center align-middle">
