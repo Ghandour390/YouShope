@@ -13,32 +13,32 @@ class UserController extends Controller
     {
        
         $users = User::all();
-        return view('users.index', compact('users'));
+        return view('admin.users', compact('users'));
     }
 
-    // public function create()
-    // {
-    //     return view('users.create');
-    // }
+    public function create()
+    {
+        return view('users.create');
+    }
 
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required|string|max:255',
-    //         'email' => 'required|string|email|unique:users',
-    //         'password' => 'required|string|min:6',
-    //         'role_id' => 'required|integer',
-    //     ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|unique:users',
+            'password' => 'required|string|min:6',
+            'role_id' => 'required|integer',
+        ]);
 
-    //     User::create([
-    //         'name' => $request->name,
-    //         'email' => $request->email,
-    //         'password' => Hash::make($request->password),
-    //         'role_id' => $request->role_id ?? 1
-    //     ]);
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role_id' => $request->role_id ?? 1
+        ]);
 
-    //     return redirect()->route('users.index')->with('success', 'Utilisateur ajouté avec succès!');
-    // }
+        return redirect()->route('admin.users')->with('success', 'Utilisateur ajouté avec succès!');
+    }
 
     public function edit(User $user)
     {
@@ -50,8 +50,7 @@ class UserController extends Controller
         $request->validate([
            
             'name' => 'required|string|max:20',
-    
-            'email' => 'required|string|email|unique:users,email,' . $user->id,
+            'email' => 'required|string|email|unique:users,email',
             'password' => 'nullable|string|min:6',
             'role_id' => 'required|integer',
         ]);
@@ -64,12 +63,12 @@ class UserController extends Controller
             'role_id' => $request->role_id,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour!');
+        return redirect()->route('admin.users')->with('success', 'Utilisateur mis à jour!');
     }
 
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect()->route('users.index')->with('success', 'Utilisateur supprimé!');
+        return redirect()->route('admin.users')->with('success', 'Utilisateur supprimé!');
     }
 }

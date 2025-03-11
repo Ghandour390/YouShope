@@ -26,6 +26,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        @foreach ($errors->all() as $error )
+                        <li>{{ $error }}</li>
+                        @endforeach
                         <form id="registerForm" method="POST" action="/admin/produits/create"  enctype="multipart/form-data" novalidate>
                             @csrf
                             <div class="input-group mb-3 border-2">
@@ -33,15 +36,15 @@
                                 <input type="file" name="image" class="form-control" id="inputGroupFile01">
                             </div>
                             <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" name="title" id="title" required>
+                                <label for="title" class="form-label">name</label>
+                                <input type="text" class="form-control" name="name" id="title" required>
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
                                 <input type="text" class="form-control" name="description" id="description" required>
                             </div>
                             <div class="mb-3">
-                                <label for="price" class="form-label">$Prix</label>
+                                <label for="prix" class="form-label">$Prix</label>
                                 <input type="number" class="form-control" name="prix" id="prix" required>
                             </div>
                             <div class="mb-3">
@@ -49,14 +52,14 @@
                                 <input type="number" class="form-control" name="quantitue" id="quantitue" required>
                             </div>
                             <div class="mb-3">
-                                <label for="category" class="form-label">Categorie</label>
+                                <label for="categorie" class="form-label">Categorie</label>
                                 <select class="form-select" name="categorie" id="categorie">
                                     @foreach($categories as $categorie)
                                         <option value="{{ $categorie->id }}" >{{ $categorie->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
-                            <input type="hidden" class="form-control" name="user" id="user" value="{{ Auth::user()->id }}" required>
+                            {{-- <input type="hidden" class="form-control" name="user" id="user" value="{{ Auth::user()->id }}" required> --}}
                             <button type="submit" class="btn btn-primary w-100">Create</button>
                         </form>
                     </div>
@@ -82,14 +85,14 @@
                 <tbody class="table-light">
                 @foreach($produits as $produit)
                     <tr>
-                        <td style="width: 10%"><img src="{{ url('/storage/' . $produit->image) }}"></td>
+                        <td style="width: 10%"><img src="{{ asset('storage/' . $produit->image) }}"></td>
                         <td><strong>{{ $produit->name }}</strong></td>
                         <td>${{ $produit->prix }}</td>
                         <td><span class="badge bg-primary">{{ $produit->quantitue }}</span></td>
                         {{-- <td><span class="badge bg-success">{{ $product->user->name }}</span></td> --}}
                         <td><span class="badge bg-primary">{{ $produit->categorie->name }}</span></td>
                         <td>
-                            <form action="{{ url('/admin/produit/get') }}" method="POST" style="display:inline;">
+                            <form action="{{ url('/admin/produit/edit') }}" method="POST" style="display:inline;">
                                 @csrf
                                 <button type="submit" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil"></i> Update

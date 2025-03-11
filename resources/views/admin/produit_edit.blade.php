@@ -8,7 +8,7 @@
                 <h4 class="mb-0">Edit Product</h4>
             </div>
             <div class="card-body">
-                <form id="registerForm" method="POST" action="/admin/product/update"  enctype="multipart/form-data" novalidate>
+                <form id="registerForm" method="POST" action="/admin/produit/update"  enctype="multipart/form-data" novalidate>
                     @csrf
                     @method('PUT')
                     <div class="input-group mb-3 border-2">
@@ -33,10 +33,10 @@
                         <input type="number" class="form-control" value="{{ $produit->quantitiue }}" name="stock" id="stock" required>
                     </div>
                     <div class="mb-3">
-                        <label for="category" class="form-label">Category</label>
-                        <select class="form-select" name="category" id="category">
-                            @foreach($categories as $categorie)
-                                <option value="{{ $categorie->id }}" >{{ $categorie->name }}</option>
+                        <label for="sucategorie" class="form-label">suategorie</label>
+                        <select class="form-select" name="sucategorie_id" id="sucategorie">
+                            @foreach($sucategories as $sucategorie)
+                                <option value="{{ $sucategorie->id }}" >{{ $sucategorie->name }}</option>
                             @endforeach
                         </select>
                     </div>

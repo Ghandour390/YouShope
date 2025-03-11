@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\categorie;
 use App\Models\Produit;
+use App\Models\sucategorie;
 use Illuminate\Http\Request;
 
 class ProduitController extends Controller
@@ -30,31 +31,41 @@ class ProduitController extends Controller
     // }
 
     
-    public function store(Request $request , Produit $produit)
+    public function store(Request $request )
     {
 
-        
+      
         $request->validate([
+            'name'=>'required | string',
+            'description'=>'required | string',
+            'sucategorie_id'=>'required|integer|exists:sucategories,id',
+            'prix' => 'required|numeric|min:0',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'quantitue' => 'required|integer|min:1',
         ]);
-        
-        $path = $request->file('image')->store('public/images');
+
+        dd($request);
+        $path = $request->file('image')->store('produits', 'public');
+
+     
     
     
-        $fileName = str_replace('public/', '', $path);
-        $produit->name =$request->name;
-        $produit->image=$fileName;
-        $produit->description=$request->prix;
-        $produit->prix=$request->quantitue;
-        $produit->sucategorie_id->$request->categorie;
+        Produit::create([
+            'name' => $request->name,
+            'sucategorie_id' => $request->sucategorie_id,
+            'prix' => $request->prix,
+            'quantitue' => $request->quantite,
+            'image' => $path,
+        ]);
 
 
         return redirect()->route('admin.produits')->with('success', 'Produit ajouté avec succès !');
     }
 
    
-    public function edit(Produit $produit)
+    public function edit($id)
     {
+        produit::find($id);
         return view('admin.produit_edit', compact('produit'));
     }
 

@@ -24,6 +24,9 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
+                        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <li><?php echo e($error); ?></li>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <form id="registerForm" method="POST" action="/admin/produits/create"  enctype="multipart/form-data" novalidate>
                             <?php echo csrf_field(); ?>
                             <div class="input-group mb-3 border-2">
@@ -31,15 +34,15 @@
                                 <input type="file" name="image" class="form-control" id="inputGroupFile01">
                             </div>
                             <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" name="title" id="title" required>
+                                <label for="title" class="form-label">name</label>
+                                <input type="text" class="form-control" name="name" id="title" required>
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
                                 <input type="text" class="form-control" name="description" id="description" required>
                             </div>
                             <div class="mb-3">
-                                <label for="price" class="form-label">$Prix</label>
+                                <label for="prix" class="form-label">$Prix</label>
                                 <input type="number" class="form-control" name="prix" id="prix" required>
                             </div>
                             <div class="mb-3">
@@ -47,14 +50,14 @@
                                 <input type="number" class="form-control" name="quantitue" id="quantitue" required>
                             </div>
                             <div class="mb-3">
-                                <label for="category" class="form-label">Categorie</label>
+                                <label for="categorie" class="form-label">Categorie</label>
                                 <select class="form-select" name="categorie" id="categorie">
                                     <?php $__currentLoopData = $categories; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $categorie): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($categorie->id); ?>" ><?php echo e($categorie->name); ?></option>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                             </div>
-                            <input type="hidden" class="form-control" name="user" id="user" value="<?php echo e(Auth::user()->id); ?>" required>
+                            
                             <button type="submit" class="btn btn-primary w-100">Create</button>
                         </form>
                     </div>
@@ -80,14 +83,14 @@
                 <tbody class="table-light">
                 <?php $__currentLoopData = $produits; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $produit): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <tr>
-                        <td style="width: 10%"><img src="<?php echo e(url('/storage/' . $produit->image)); ?>"></td>
+                        <td style="width: 10%"><img src="<?php echo e(asset('storage/' . $produit->image)); ?>"></td>
                         <td><strong><?php echo e($produit->name); ?></strong></td>
                         <td>$<?php echo e($produit->prix); ?></td>
                         <td><span class="badge bg-primary"><?php echo e($produit->quantitue); ?></span></td>
                         
                         <td><span class="badge bg-primary"><?php echo e($produit->categorie->name); ?></span></td>
                         <td>
-                            <form action="<?php echo e(url('/admin/produit/get')); ?>" method="POST" style="display:inline;">
+                            <form action="<?php echo e(url('/admin/produit/edit')); ?>" method="POST" style="display:inline;">
                                 <?php echo csrf_field(); ?>
                                 <button type="submit" class="btn btn-sm btn-warning">
                                     <i class="bi bi-pencil"></i> Update

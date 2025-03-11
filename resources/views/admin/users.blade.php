@@ -28,7 +28,7 @@
                         <td>{{ $user->email }}</td>
                         <td>
                             @if($user->role)
-                                <form method="POST" action="{{ url('/admin/user/update') }}" id="statusForm">
+                                <form method="POST" action="{{ url('/admin/users/update') }}" id="statusForm">
                                     @csrf
                                     @method('PUT')
                                     <select class="form-select" name="role" onchange="this.form.submit()">
